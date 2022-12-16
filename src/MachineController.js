@@ -3,12 +3,12 @@ const Validation = require('./validation');
 
 class MachineController {
   play() {
-    this.#requestMachineAmountMoney();
+    this.#requestMachineMoneyAmount();
   }
 
-  #requestMachineAmountMoney() {
-    InputView.readMachineAmountMoney((machineAmountMoney) => {
-      Validation.validateMachineMoneyAmount(machineAmountMoney);
+  #requestMachineMoneyAmount() {
+    InputView.readMachineAmountMoney((machineMoneyAmount) => {
+      Validation.validateMachineMoneyAmount(machineMoneyAmount);
     });
   }
 }
