@@ -30,6 +30,12 @@ class MachineController {
     this.#vendingMachine = new VendingMachine(coinList);
 
     OutputView.printMachineCoinList(coinList);
+
+    this.#requestProductInfo();
+  }
+
+  #requestProductInfo() {
+    InputView.readProductInfo((productInfo) => {});
   }
 }
 
