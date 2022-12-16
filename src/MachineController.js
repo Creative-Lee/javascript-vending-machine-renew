@@ -7,7 +7,7 @@ class MachineController {
   }
 
   #requestMachineMoneyAmount() {
-    InputView.readMachineAmountMoney((machineMoneyAmount) => {
+    InputView.readMachineMoneyAmount((machineMoneyAmount) => {
       Validation.validateMachineMoneyAmount(machineMoneyAmount);
     });
   }
