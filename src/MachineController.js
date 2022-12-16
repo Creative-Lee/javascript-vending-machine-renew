@@ -1,5 +1,6 @@
 const InputView = require('./views/InputView');
-const Validation = require('./validation');
+const { validateMachineMoneyAmount } = require('./validation/index.js');
+const inputErrorHandler = require('./utils/inputErrorHandler.js');
 
 class MachineController {
   play() {
@@ -8,7 +9,12 @@ class MachineController {
 
   #requestMachineMoneyAmount() {
     InputView.readMachineMoneyAmount((machineMoneyAmount) => {
-      Validation.validateMachineMoneyAmount(machineMoneyAmount);
+      const isValidInput = inputErrorHandler(validateMachineMoneyAmount, machineMoneyAmount);
+
+      if (!isValidInput) {
+        this.#requestMachineMoneyAmount();
+        return;
+      }
     });
   }
 }
