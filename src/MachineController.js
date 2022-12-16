@@ -1,9 +1,12 @@
 const InputView = require('./views/InputView');
+const VendingMachine = require('./VendingMachine.js');
 const { validateMachineMoneyAmount } = require('./validation/index.js');
 const inputErrorHandler = require('./utils/inputErrorHandler.js');
 const generateCoinList = require('./utils/generateCoinList.js');
 
 class MachineController {
+  #vendingMachine;
+
   play() {
     this.#requestMachineMoneyAmount();
   }
@@ -23,6 +26,7 @@ class MachineController {
 
   #chargeMachineCoin(machineMoneyAmount) {
     const coinList = generateCoinList(machineMoneyAmount);
+    this.#vendingMachine = new VendingMachine(coinList);
   }
 }
 
