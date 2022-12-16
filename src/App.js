@@ -1,5 +1,11 @@
+const MachineController = require('./MachineController');
+
 class App {
-  play() {}
+  play() {
+    new MachineController().play();
+  }
 }
+
+new App().play();
 
 module.exports = App;
