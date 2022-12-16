@@ -1,4 +1,5 @@
 const InputView = require('./views/InputView');
+const Validation = require('./validation');
 
 class MachineController {
   play() {
@@ -6,7 +7,9 @@ class MachineController {
   }
 
   #requestMachineAmountMoney() {
-    InputView.readMachineAmountMoney((machineAmountMoney) => {});
+    InputView.readMachineAmountMoney((machineAmountMoney) => {
+      Validation.validateMachineMoneyAmount(machineAmountMoney);
+    });
   }
 }
 
