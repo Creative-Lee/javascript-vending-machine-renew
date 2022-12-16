@@ -15,6 +15,8 @@ const Validation = {
       throw new Error(ERROR_MSG.indivisibleMoneyAmount);
     }
   },
+
+  validateProductInfo(productInfo) {},
 };
 
 const ERROR_MSG = {

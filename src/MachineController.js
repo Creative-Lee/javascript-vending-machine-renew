@@ -1,7 +1,7 @@
 const InputView = require('./views/InputView');
 const OutputView = require('./views/OutputView');
 const VendingMachine = require('./VendingMachine.js');
-const { validateMachineMoneyAmount } = require('./validation/index.js');
+const { validateMachineMoneyAmount, validateProductInfo } = require('./validation/index.js');
 const inputErrorHandler = require('./utils/inputErrorHandler.js');
 const generateCoinList = require('./utils/generateCoinList.js');
 
@@ -21,11 +21,11 @@ class MachineController {
         return;
       }
 
-      this.#chargeMachineCoin(machineMoneyAmount);
+      this.#chargeMachineCoinPhase(machineMoneyAmount);
     });
   }
 
-  #chargeMachineCoin(machineMoneyAmount) {
+  #chargeMachineCoinPhase(machineMoneyAmount) {
     const coinList = generateCoinList(machineMoneyAmount);
     this.#vendingMachine = new VendingMachine(coinList);
 
@@ -35,7 +35,20 @@ class MachineController {
   }
 
   #requestProductInfo() {
-    InputView.readProductInfo((productInfo) => {});
+    InputView.readProductInfo((productsInfo) => {
+      const isValidInput = inputErrorHandler(validateProductInfo, productsInfo);
+
+      if (!isValidInput) {
+        this.#requestProductInfo();
+        return;
+      }
+
+      this.#productManagePhase(productsInfo);
+    });
+  }
+
+  #productManagePhase(productsInfo) {
+    productsInfo.split(';').forEach((productInfo) => this.#vendingMachine.addProduct(productInfo));
   }
 }
 
